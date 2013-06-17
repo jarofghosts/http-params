@@ -1,0 +1,24 @@
+{
+  "name": "http-params",
+  "version": "0.0.1",
+  "description": "get http parameters",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jarofghosts/http-params.git"
+  },
+  "keywords": [
+    "http",
+    "parameters",
+    "params",
+    "parse"
+  ],
+  "author": "jesse keane",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/jarofghosts/http-params/issues"
+  }
+}
