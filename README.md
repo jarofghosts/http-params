@@ -1,7 +1,9 @@
 http-params
 ===
 
-pass in an http request and get back your params
+[![Build Status](https://travis-ci.org/jarofghosts/http-params.png?branch=master)](https://travis-ci.org/jarofghosts/http-params)
+
+Easy access to http parameters.
 
 ## usage
 
