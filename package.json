@@ -1,6 +1,6 @@
 {
   "name": "http-params",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "get http parameters",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "parse"
   ],
   "author": "jesse keane",
-  "license": "BSD",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jarofghosts/http-params/issues"
   }
