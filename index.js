@@ -18,6 +18,11 @@ exports.parse = function (request, callback) {
   });
   
   request.on('end', function () {
+    try {
+      var result = JSON.parse(params);
+    } catch (e) {
+      return callback && callback(e);
+    }
     callback && callback(null, JSON.parse(params));
   });
 };
