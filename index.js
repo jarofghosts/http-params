@@ -8,7 +8,7 @@ function parse(request, callback) {
   if (method != 'post' && method != 'put') {
     return callback && callback(null, url.parse(request.url, true).query)
   }
-                
+
   var params = ''
 
   request.on('data', function (data) {
@@ -18,7 +18,7 @@ function parse(request, callback) {
       callback && callback(new Error('param size exceeded'))
     }
   })
-  
+ 
   request.on('end', function () {
     try {
       var result = JSON.parse(params);
