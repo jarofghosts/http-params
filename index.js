@@ -2,32 +2,35 @@ var url = require('url')
 
 exports.parse = parse
 
-function parse(request, callback) {
-  var method = request.method.toLowerCase()
+function parse(request, _callback) {
+  var method = request.method.toLowerCase(),
+      callback = _callback || function () {}
 
   if (method != 'post' && method != 'put') {
-    return callback && callback(null, url.parse(request.url, true).query)
+    return callback(null, url.parse(request.url, true).query)
   }
 
   var params = ''
 
-  request.on('data', function (data) {
+  request.on('data', on_request)
+  request.on('end', end_request)
+
+  request.resume()
+
+  function on_request(data) {
     params += data
     if (params.length > 1e6) {
       request.connection.destroy()
-      callback && callback(new Error('param size exceeded'))
+      callback(new Error('param size exceeded'))
     }
-  })
+  }
  
-  request.on('end', function () {
+  function end_request() {
     try {
-      var result = JSON.parse(params);
+      var result = JSON.parse(params)
     } catch (e) {
-      return callback && callback(e);
+      return callback(e)
     }
-    callback && callback(null, result)
-  })
-
-  request.resume()
+    callback(null, result)
+  }
 }
-
