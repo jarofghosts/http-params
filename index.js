@@ -1,23 +1,22 @@
 var url = require('url')
 
-exports.parse = parse
+module.exports = parse
 
 function parse(request, _callback) {
   var method = request.method.toLowerCase(),
-      callback = _callback || function () {}
+      callback = _callback || function () {},
+      params = ''
 
-  if (method != 'post' && method != 'put') {
+  if (method !== 'post' && method !== 'put') {
     return callback(null, url.parse(request.url, true).query)
   }
 
-  var params = ''
-
-  request.on('data', on_request)
+  request.on('data', on_data)
   request.on('end', end_request)
 
   request.resume()
 
-  function on_request(data) {
+  function on_data(data) {
     params += data
     if (params.length > 1e6) {
       request.connection.destroy()

@@ -1,41 +1,40 @@
 var assert = require('assert'),
-  http = require('http'),
-  querystring = require('querystring'),
-  httpParams = require('../index.js');
+    http = require('http'),
+    querystring = require('querystring'),
+    parse = require('../')
 
 var server = http.createServer(function (req, res) {
-  httpParams.parse(req, function (err, params) {
-    assert.ok(!err);
-    assert.equal(params.hello, "world");
-    if (req.method.toLowerCase() == 'get') {
-      process.exit();
+  parse(req, function (err, params) {
+    assert.ok(!err)
+    assert.equal(params.hello, 'world')
+    if (req.method.toLowerCase() === 'get') {
+      process.exit()
     }
-  });
-}).listen(7734);
+  })
+}).listen(7734)
 
-var getData = querystring.stringify({ hello: "world" });
+var get_data = querystring.stringify({ hello: 'world' })
 
-var postData = JSON.stringify({ hello: "world" });
+var post_data = JSON.stringify({ hello: 'world' })
 
-var postOptions = {
+var post_options = {
   host: 'localhost',
   port: 7734,
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
-    'Content-Length': postData.length
+    'Content-Length': post_data.length
   }
-};
+}
 
-var getOptions = {
+var get_options = {
   host: 'localhost',
   port: 7734,
-  path: '/?' + getData
-};
+  path: '/?' + get_data
+}
 
-var postRequest = http.request(postOptions);
-postRequest.write(postData);
-postRequest.end();
+var post_request = http.request(post_options)
+post_request.write(post_data)
+post_request.end()
 
-http.get(getOptions);
-
+http.get(get_options)
