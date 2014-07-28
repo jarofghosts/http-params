@@ -4,19 +4,19 @@ module.exports = parse
 
 function parse(request, _callback) {
   var method = request.method.toLowerCase()
-    , callback = _callback || noop
+    , callback = _callback || Function()
     , params = ''
 
   if(method !== 'post' && method !== 'put') {
     return callback(null, url.parse(request.url, true).query)
   }
 
-  request.on('data', on_data)
-  request.on('end', end_request)
+  request.on('data', onData)
+  request.on('end', endRequest)
 
   request.resume()
 
-  function on_data(data) {
+  function onData(data) {
     params += data
 
     if(params.length > 1e6) {
@@ -25,15 +25,13 @@ function parse(request, _callback) {
     }
   }
  
-  function end_request() {
+  function endRequest() {
     try {
       var result = JSON.parse(params)
-    } catch (e) {
+    } catch(e) {
       return callback(e)
     }
 
     callback(null, result)
   }
 }
-
-function noop(){}
