@@ -24,7 +24,7 @@ function parse(request, _callback) {
       callback(new Error('param size exceeded'))
     }
   }
- 
+
   function endRequest() {
     try {
       var result = JSON.parse(params)
